@@ -18,8 +18,10 @@ export default function LoginPage() {
         <button type="submit">로그인</button>
         <a href="/auth/signup">회원가입</a>
         <Button title="test" size="sm" />
-        <Button variant="primary" title="test" />
-        <Button variant="secondary" size="lg" title="test" />
+        <Button variant="contained" color="primary"  title="test" />
+        <Button variant="contained" color="secondary"  title="test" />
+        <Button variant="outlined" color="primary" title="test" />
+        <Button variant="outlined" color="secondary" title="test" />
       </form>
     </Wrapper>
   );

@@ -1,38 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-const BasicButton = styled('button')`
-  padding: 20px;
-  background-color: hotpink;
-  font-size: 20px;
-  border-radius: 4px;
-  color: #000,
-  font-weight: bold;
-
-  &.primary {
-    background-color: #1976d2;
-    color: #ffffff;
-  }
-  &.secondary {
-    background-color: #ffffff;
-    color: #1976d2;
-  }
-  
-  &:hover {
-      color: white;
-  }
-` 
-// const BasicButton = styled('button')(
-//   {
-//     color: "#333"
-//   },
-//   props => ({
-//   padding: 20,
-//   backgroundColor: "hotpink",
-//   fontSize: "1.2rem",
-//   borderRadius: 4,
-//   color: props.colorType,
-// }))
+import { css, jsx } from "@emotion/react";
 
 export interface SizeTypes {
   sm?: {
@@ -48,6 +16,7 @@ export interface SizeTypes {
     fontSize: string
   }
 }
+
 const SizeProps: SizeTypes = {
   sm: {
     padding:'10px',
@@ -63,15 +32,49 @@ const SizeProps: SizeTypes = {
   },
 }
 
+const BasicButton = styled.button`
+  padding: 20px;
+  font-size: 20px;
+  font-weight: bold;
+
+  &.primary {
+    border-color: #1976d2;
+    background-color: #1976d2;
+    color: #1976d2;
+  }
+  &.secondary {
+    border-color: #2e7d32;
+    background-color: #2e7d32;
+    color: #2e7d32;
+  }
+
+  &.contained {
+    border: none;
+    color: #fff;
+  }
+  &.outlined {
+    background: none;
+    border-width: 1px;
+    border-style: solid;
+  }
+  
+  &:hover {
+      color: white;
+  }
+` 
+
 export interface ButtonTypes {
-  variant?: string
+  variant?: 'contained' | 'outlined'
   size?: 'sm' | 'md' | 'lg'
+  color?: 'primary' | 'secondary'
   title?: string
 }
 
-export default function Button({ variant, size, title }: ButtonTypes) {
+export default function Button({ variant, size, color, title }: ButtonTypes) {
   const sizeType = SizeProps[size || 'md']
   return (
-    <BasicButton className={`${variant}`} style={sizeType}>{title} {size}</BasicButton>
+    <>
+      <BasicButton className={`${variant} ${color}`} style={sizeType}>{title} {size ? size : 'md'}</BasicButton>
+    </>
   )
 }
