@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import Button from "../../src/components/common/button";
+import LinkButton from "../../src/components/common/linkButton";
 
 export default function LoginPage() {
   const { register, handleSubmit } = useForm<{
@@ -15,16 +17,25 @@ export default function LoginPage() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register("email")} />
         <input {...register("password")} />
-        <button type="submit">로그인</button>
-        <a href="/auth/signup">회원가입</a>
-        <Button title="test" size="sm" />
-        <Button variant="contained" color="primary"  title="test" />
-        <Button variant="contained" color="secondary"  title="test" />
-        <Button variant="outlined" color="primary" title="test" />
-        <Button variant="outlined" color="secondary" title="test" />
+        <Button type="submit" variant="contained" color="primary" title="로그인" />
+        <LinkButton href="/auth/signup" variant="outlined" color="primary" title="회원가입" />
+        <Button variant="contained" color="primary"  title="동의하고 가입하기" />
       </form>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  min-width: 290px;
+  max-width: 460px;
+  margin: 0 auto;
+  
+  & form > * {
+    display: block;
+    width: 100%;
+  }
+
+  a, button {
+    margin-top: 18px;
+  }
+`;

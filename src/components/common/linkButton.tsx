@@ -1,6 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css, jsx } from "@emotion/react";
+import Link from "next/link";
+import { Url, UrlObject } from "url";
 
 export interface SizeTypes {
   sm?: {
@@ -32,16 +34,17 @@ const SizeProps: SizeTypes = {
   },
 }
 
-const BasicButton = styled.button`
+const BasicLink = styled.a`
   padding: 16px 0 17px;
   border-radius: 2px;
   border-width: 1px;
   font-size: 20px;
   font-weight: bold;
   box-shadow: inset 0 -1px 0 rgb(0 0 0 / 15%);
+  text-align: center;
 
   &.primary {
-    border-color: #346aff;
+    border-color: #ccc;
     background-color: #346aff;
     color: #346aff;
   }
@@ -70,14 +73,14 @@ export interface ButtonTypes {
   size?: 'sm' | 'md' | 'lg'
   color?: 'primary' | 'secondary'
   title?: string
-  type?: 'submit' | 'button'
+  href: string
 }
 
-export default function Button({ variant, size, color, title, type }: ButtonTypes) {
+export default function LinkButton({ variant, size, color, title, href }: ButtonTypes ) {
   const sizeType = SizeProps[size || 'md']
   return (
-    <>
-      <BasicButton type={type} className={`${variant} ${color}`} style={sizeType}>{title}</BasicButton>
-    </>
+    <Link href={href}>
+      <BasicLink className={`${variant} ${color}`} style={sizeType}>{title}</BasicLink>
+    </Link>
   )
 }
