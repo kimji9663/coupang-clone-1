@@ -9,6 +9,13 @@ export const InputLabel = styled.label`
   background-color: #fff;
   transition: border-color .25s ease;
 
+  &:focus-within {
+    border-bottom: 2px solid #346aff;
+  }
+  &.error {
+    border-bottom: 2px solid #e7223d;
+  }
+
   & .sprite {
     overflow: hidden;
     display: inline-block;

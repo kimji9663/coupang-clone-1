@@ -2,7 +2,7 @@ import { InputLabel } from "./index.css"
 
 export interface inputProps {
     icon?: 'email' | 'password' | 'name' | 'phone'
-    type?: 'text' | 'number'
+    type?: 'text' | 'password'
 }
 
 export default function InputBox({ icon, type }: inputProps){
@@ -15,7 +15,7 @@ export default function InputBox({ icon, type }: inputProps){
         <i className="sprite valid"></i>
       </span>
       <span className="input_wrap">
-        <input className="email" type={type} />
+        <input type={type} />
       </span>
     </InputLabel>
   )
