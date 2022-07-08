@@ -1,14 +1,18 @@
-import styled from "@emotion/styled";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import Button from "../../src/components/common/button";
-import LinkButton from "../../src/components/common/linkButton";
-import InputBox from "../../src/components/common/Input";
+
+import React, { useRef, useEffect } from "react"
+import styled from "@emotion/styled"
+import Link from "next/link"
+import { useForm } from "react-hook-form"
+import Button from "../../src/components/common/button"
+import LinkButton from "../../src/components/common/linkButton"
+import InputBox from "../../src/components/common/Input"
 import { InputLabel } from "../../src/components/common/Input/index.css"
 
+
 interface IFormInput {
-  email: string;
-  password: string;
+  email: string
+  password: string
+  password_confirm: string
 }
 
 export default function LoginPage() {
@@ -16,34 +20,25 @@ export default function LoginPage() {
     register, 
     handleSubmit, 
     watch, 
+    setFocus,
     formState: { errors } 
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>({ mode: "onChange" })
 
+  const password = useRef()
+  //password.current = watch("password")
   const onSubmit = (data: IFormInput) => {
     alert(JSON.stringify(data))
   }
+  //console.log(watch('email'))
+
+  useEffect(() => {
+    setFocus("email")
+  }, [setFocus])
 
   return (
     <Wrapper>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* <input {...register("email")} /> */}
-        {/* <input {...register("password")} /> */}
-        {/* <InputBox icon="email" type="text" 
-          {...register("email", {
-            required: true,
-          })} 
-        />
-        {errors?.email?.type === 'required' && <p>이메일을 입력하세요.</p>}
-        <InputBox icon="password" type="password"
-          {...register("password", {
-            required: true,
-            maxLength: 20,
-            pattern: /^[A-Za-z]+$/i
-          })} 
-         />
-         {errors?.password?.type === 'pattern' && <p>영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>} */}
-         
-        <InputLabel>
+      <form onSubmit={handleSubmit(onSubmit)}>         
+        <InputLabel hasError={errors.email} className={`${errors.email ? "error" : null}`}>
           <span className="icon_label">
             <i className={`sprite email`}></i>
           </span>
@@ -51,16 +46,20 @@ export default function LoginPage() {
             <i className="sprite valid"></i>
           </span>
           <span className="input_wrap">
-            <input type="text" 
+            <input type="text"
               {...register("email", {
-                required: true,
+                required: "이메일을 입력하세요.",
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: "이메일을 올바르게 입력해주세요."
+                }
               })}
             />
           </span>
         </InputLabel>
-        {errors?.email?.type === 'required' && <p>이메일을 입력하세요.</p>}
+        {errors.email && <p style={{color: "red"}}>{errors.email.message}</p>}
 
-        <InputLabel>
+        <InputLabel hasError={errors.password}>
           <span className="icon_label">
             <i className={`sprite password`}></i>
           </span>
@@ -70,16 +69,34 @@ export default function LoginPage() {
           <span className="input_wrap">
             <input type="password" 
               {...register("password", {
-                required: true,
-                maxLength: 20,
-                pattern: /^(?=.*[a-z])((?=.*\d)|(?=.*\W))(?=.*[!@#$%^*+=-]).{8,20}$/i,
+                required: "비밀번호를 입력하세요.",
+                pattern: {
+                  value: /^(?=.*[a-z])((?=.*\d)|(?=.*\W))(?=.*[!@#$%^*+=-]).{8,20}$/i,
+                  message: "영문/숫자/특수문자 2가지 이상 조합 (8~20자)",
+                },
               })} 
             />
           </span>
         </InputLabel>
-        {errors?.password?.type === 'pattern' && <p>영문/숫자/특수문자 2가지 이상 조합 (8~20자)</p>}
-        {/* {errors?.password?.type === 'pattern' && <p>3개 이상 연속되거나 동일한 문자/숫자 제외</p>} */}
-        {/* {errors?.password?.type === 'pattern' && <p>아이디(이메일) 제외</p>} */}
+        {errors.password && <p>{errors.password.message}</p>}
+
+        <InputLabel hasError={errors.password_confirm}>
+          <span className="icon_label">
+            <i className={`sprite password`}></i>
+          </span>
+          <span className="validator">
+            <i className="sprite valid"></i>
+          </span>
+          <span className="input_wrap">
+            <input type="password"
+              {...register("password_confirm", {
+                required: "확인을 위해 새 비밀번호를 다시 입력해주세요.",
+                validate: (value) => value === password.current || "비밀번호가 일치하지 않습니다.",
+              })} 
+            />
+          </span>
+        </InputLabel>
+        {errors.password_confirm && <p>{errors.password_confirm.message}</p>}
 
         <InputBox icon="name" type="text" />
         <InputBox icon="phone" type="text" />

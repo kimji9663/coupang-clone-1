@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 
-export const InputLabel = styled.label`
+export const InputLabel = styled.label<{hasError: any}>`
   display: block;
   position: relative;
   height: 48px;
   padding: 0;
   border: 1px solid #ccc;
+  border-bottom: ${(props) => (props.hasError ? "2px solid #ff0000": "1px solid #ccc")};
   background-color: #fff;
   transition: border-color .25s ease;
 
