@@ -33,6 +33,7 @@ const SizeProps: SizeTypes = {
 }
 
 const BasicButton = styled.button`
+  cursor: pointer;
   padding: 16px 0 17px;
   border-radius: 2px;
   border-width: 1px;
@@ -60,9 +61,6 @@ const BasicButton = styled.button`
     border-style: solid;
   }
   
-  &:hover {
-      color: white;
-  }
 ` 
 
 export interface ButtonTypes {

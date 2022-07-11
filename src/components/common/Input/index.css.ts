@@ -103,6 +103,9 @@ export const InputLabel = styled.label<{hasError: any}>`
       font-weight: 700;
       text-indent: 12px;
     }
+    & > input::placeholder {
+      color: #ccc;
+    }
     & > input:focus {
       outline: none;
     }

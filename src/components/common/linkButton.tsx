@@ -35,6 +35,7 @@ const SizeProps: SizeTypes = {
 }
 
 const BasicLink = styled.a`
+  cursor: pointer;
   padding: 16px 0 17px;
   border-radius: 2px;
   border-width: 1px;
@@ -61,10 +62,6 @@ const BasicLink = styled.a`
   &.outlined {
     background: none;
     border-style: solid;
-  }
-  
-  &:hover {
-      color: white;
   }
 ` 
 
