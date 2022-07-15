@@ -33,13 +33,13 @@ const SizeProps: SizeTypes = {
 }
 
 const BasicButton = styled.button`
-  cursor: pointer;
   padding: 16px 0 17px;
   border-radius: 2px;
   border-width: 1px;
   font-size: 20px;
   font-weight: bold;
   box-shadow: inset 0 -1px 0 rgb(0 0 0 / 15%);
+  min-width: 200px;
 
   &.primary {
     border-color: #346aff;
@@ -71,11 +71,23 @@ export interface ButtonTypes {
   type?: 'submit' | 'button'
 }
 
-export default function Button({ variant, size, color, title, type }: ButtonTypes) {
+export default function Button({ 
+  variant = 'contained', 
+  size = 'md', 
+  color, 
+  title, 
+  type 
+}: ButtonTypes) {
   const sizeType = SizeProps[size || 'md']
   return (
     <>
-      <BasicButton type={type} className={`${variant} ${color}`} style={sizeType}>{title}</BasicButton>
+      <BasicButton 
+        type={type} 
+        className={`${variant} ${color}`} 
+        style={sizeType}
+      >
+        {title}
+      </BasicButton>
     </>
   )
 }
